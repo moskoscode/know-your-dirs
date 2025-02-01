@@ -4,13 +4,14 @@ extends Control
 @onready var points_label: Label = $Points;
 @onready var challenge_label: Label = $Layout/Challenge;
 @onready var progress_bar: ProgressBar = $ProgressBar;
-@onready var current_side: G.Sides = G.Sides.values().pick_random()
+@onready var current_lang: G.Language = G.Language.values().pick_random()
+@onready var current_side: G.Side = G.Side.values().pick_random()
 @onready var tween: Tween = null
 
 func _ready() -> void:
 	points_label.text = '{points} pts'.format({'points': G.game_data.points})
 	progress_bar.value = 10
-	challenge_label.text = G.Sides.keys()[current_side]
+	challenge_label.text = G.side_name(current_lang, current_side)
 
 	tween = create_tween()
 	tween.tween_property(progress_bar, "value", 0, 3)
@@ -21,7 +22,7 @@ func _on_time_end() -> void:
 	get_tree().change_scene_to_packed(G.game_over_scene)
 
 
-func _on_btn_pressed(side: G.Sides) -> void:
+func _on_btn_pressed(side: G.Side) -> void:
 	if side != current_side:
 		# Wrong side, lost game
 		get_tree().change_scene_to_packed(G.game_over_scene)

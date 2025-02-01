@@ -1,0 +1,98 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8djrwbyahvkk"]
+
+[ext_resource type="FontFile" uid="uid://chj6obe0ngdo3" path="res://assets/fonts/RampartOne-Regular.ttf" id="1_evymt"]
+[ext_resource type="Script" path="res://src/simple_direction.gd" id="1_f3msn"]
+[ext_resource type="Theme" uid="uid://dikdrnxdfrbwd" path="res://src/themes/MainMenu.tres" id="2_akeg8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lclri"]
+line_spacing = -25.0
+font = ExtResource("1_evymt")
+font_size = 81
+font_color = Color(0.243137, 0.243137, 0.243137, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_e2aqu"]
+line_spacing = -25.0
+font_size = 20
+font_color = Color(0.243137, 0.243137, 0.243137, 1)
+
+[node name="SimpleDirection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f3msn")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.964706, 0.905882, 0.756863, 1)
+
+[node name="Layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Challenge" type="Label" parent="Layout"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.0
+text = "Left"
+label_settings = SubResource("LabelSettings_lclri")
+
+[node name="MarginContainer" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Layout/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LeftBtn" type="Button" parent="Layout/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_akeg8")
+text = "<-"
+
+[node name="RightBtn" type="Button" parent="Layout/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_akeg8")
+text = "->"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 13.0
+grow_horizontal = 2
+theme = ExtResource("2_akeg8")
+max_value = 10.0
+value = 7.0
+show_percentage = false
+
+[node name="Points" type="Label" parent="."]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 24.0
+offset_right = 53.0
+offset_bottom = 47.0
+text = "Pts: 0"
+label_settings = SubResource("LabelSettings_e2aqu")
+
+[connection signal="pressed" from="Layout/MarginContainer/VBoxContainer/LeftBtn" to="." method="_on_btn_pressed" binds= [0]]
+[connection signal="pressed" from="Layout/MarginContainer/VBoxContainer/RightBtn" to="." method="_on_btn_pressed" binds= [1]]

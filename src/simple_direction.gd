@@ -18,19 +18,20 @@ func _ready() -> void:
 
 
 func _on_time_end() -> void:
-	G.scene_manager.transition_to(SceneManager.Scene.GameOver)
+	G.game_data.lives -= 1
+	G.scene_manager.transition_to(SceneManager.Scene.Intermission)
 
 
 func _on_btn_pressed(side: G.Side) -> void:
 	if side != current_side:
-		# Wrong side, lost game
-		get_tree().change_scene_to_packed(G.game_over_scene)
-		return
+		# Wrong side, lost life
+		G.game_data.add_lives(-1)
 
-	var time_left := int(progress_bar.value)
-	G.game_data.points += time_left
+	else:
+		var time_left := int(progress_bar.value)
+		G.game_data.add_points(time_left)
 
-	G.scene_manager.transition_to(SceneManager.Scene.SimpleDirection)
+	G.scene_manager.transition_to(SceneManager.Scene.Intermission)
 
 func _unhandled_input(event: InputEvent):
 	if event.is_action_pressed('left'):

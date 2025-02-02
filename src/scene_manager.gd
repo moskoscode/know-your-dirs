@@ -14,11 +14,15 @@ func _ready() -> void:
 	add_child(current_scene)
 
 
-func _process(_delta: float) -> void:
-	pass
+func go_to(scene: Scene):
+	var next_scene := create_scene(scene)
+	add_child(next_scene)
+	remove_child(current_scene)
+	current_scene.queue_free()
+	current_scene = next_scene
 
 
-func transition_to(scene: Scene):
+func transition_to(scene: Scene, transition_time := 0.3):
 	# show overlay but transparent
 	overlay_node.color.a = 0
 	overlay_node.visible = true
@@ -35,7 +39,7 @@ func transition_to(scene: Scene):
 
 	var opaque_color := overlay_node.color
 	opaque_color.a = 1
-	tw.tween_property(overlay_node, "color", opaque_color, 0.15)
+	tw.tween_property(overlay_node, "color", opaque_color, transition_time / 2)
 	tw.tween_callback(func ():
 		next_scene.visible = true
 
@@ -46,26 +50,28 @@ func transition_to(scene: Scene):
 	)
 
 	var transparent_color := overlay_node.color
-	tw.tween_property(overlay_node, "color", transparent_color, 0.15)
+	tw.tween_property(overlay_node, "color", transparent_color, transition_time / 2)
 	tw.tween_callback(func ():
 		overlay_node.visible = false
 		current_scene.process_mode = Node.PROCESS_MODE_INHERIT
+		print('finished transition')
 	)
-
-
-	#current_scene.queue_free()
-	#current_scene = next_scene
-
 
 
 func create_scene(scene: Scene) -> Node:
 	return _scene_lookup[scene].instantiate()
 
 
-enum Scene { MainMenu, SimpleDirection, GameOver }
+enum Scene {
+	MainMenu,
+	SimpleDirection,
+	Intermission,
+	GameOver,
+}
 
 const _scene_lookup = [
 	preload("res://src/MainMenu.tscn"),
 	preload("res://src/SimpleDirection.tscn"),
+	preload("res://src/Intermission.tscn"),
 	preload("res://src/GameOver.tscn"),
 ]

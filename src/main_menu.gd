@@ -10,4 +10,4 @@ func _process(_delta: float) -> void:
 
 func _on_start_btn_pressed() -> void:
 	G.game_data = GameData.new()
-	G.scene_manager.transition_to(SceneManager.Scene.SimpleDirection)
+	G.scene_manager.go_to(SceneManager.Scene.SimpleDirection)

@@ -1,6 +1,5 @@
 extends Control
 
-
 @onready var points_label: Label = $Points;
 @onready var challenge_label: Label = $Layout/Challenge;
 @onready var progress_bar: ProgressBar = $ProgressBar;
@@ -19,7 +18,7 @@ func _ready() -> void:
 
 
 func _on_time_end() -> void:
-	get_tree().change_scene_to_packed(G.game_over_scene)
+	G.scene_manager.transition_to(SceneManager.Scene.GameOver)
 
 
 func _on_btn_pressed(side: G.Side) -> void:
@@ -31,4 +30,10 @@ func _on_btn_pressed(side: G.Side) -> void:
 	var time_left := int(progress_bar.value)
 	G.game_data.points += time_left
 
-	get_tree().change_scene_to_packed(G.simple_direction_scene)
+	G.scene_manager.transition_to(SceneManager.Scene.SimpleDirection)
+
+func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed('left'):
+		_on_btn_pressed(G.Side.Left)
+	if event.is_action_pressed('right'):
+		_on_btn_pressed(G.Side.Right)

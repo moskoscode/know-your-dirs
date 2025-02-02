@@ -7,4 +7,4 @@ func _ready() -> void:
 
 
 func _on_main_menu_btn_pressed() -> void:
-	get_tree().change_scene_to_packed(G.main_menu_scene)
+	G.scene_manager.transition_to(SceneManager.Scene.MainMenu)

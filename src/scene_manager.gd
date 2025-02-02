@@ -54,7 +54,6 @@ func transition_to(scene: Scene, transition_time := 0.3):
 	tw.tween_callback(func ():
 		overlay_node.visible = false
 		current_scene.process_mode = Node.PROCESS_MODE_INHERIT
-		print('finished transition')
 	)
 
 

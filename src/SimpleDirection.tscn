@@ -81,8 +81,7 @@ anchor_right = 1.0
 offset_bottom = 13.0
 grow_horizontal = 2
 theme = ExtResource("2_akeg8")
-max_value = 10.0
-value = 7.0
+value = 70.0
 show_percentage = false
 
 [node name="Points" type="Label" parent="."]

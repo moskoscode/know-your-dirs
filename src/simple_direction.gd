@@ -8,12 +8,17 @@ extends Control
 @onready var tween: Tween = null
 
 func _ready() -> void:
+	progress_bar.value = progress_bar.max_value
 	points_label.text = '{points} pts'.format({'points': G.game_data.points})
-	progress_bar.value = 10
 	challenge_label.text = G.side_name(current_lang, current_side)
 
+	var time_to_answer := maxf(3. - (G.game_data.challenges / 8.), 0.6)
+
+	print('challenges ', G.game_data.challenges)
+	print('time_to_answer ', time_to_answer)
+
 	tween = create_tween()
-	tween.tween_property(progress_bar, "value", 0, 3)
+	tween.tween_property(progress_bar, "value", 0, time_to_answer)
 	tween.tween_callback(_on_time_end)
 
 

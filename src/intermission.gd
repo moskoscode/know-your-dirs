@@ -30,7 +30,7 @@ func _ready() -> void:
 	points_tw.tween_interval(0.6)
 	points_tw.tween_callback(func ():
 		if G.game_data.lives > 0:
-			G.scene_manager.transition_to(SceneManager.Scene.SimpleDirection)
+			G.scene_manager.transition_to([SceneManager.Scene.SimpleDirection, SceneManager.Scene.NameDirection].pick_random())
 		else:
 			G.scene_manager.transition_to(SceneManager.Scene.GameOver)
 	)

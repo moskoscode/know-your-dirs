@@ -64,6 +64,7 @@ func create_scene(scene: Scene) -> Node:
 enum Scene {
 	MainMenu,
 	SimpleDirection,
+	NameDirection,
 	Intermission,
 	GameOver,
 }
@@ -71,6 +72,7 @@ enum Scene {
 const _scene_lookup = [
 	preload("res://src/MainMenu.tscn"),
 	preload("res://src/SimpleDirection.tscn"),
+	preload("res://src/NameDirection.tscn"),
 	preload("res://src/Intermission.tscn"),
 	preload("res://src/GameOver.tscn"),
 ]
